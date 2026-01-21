@@ -2,23 +2,19 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
+import api from '@/lib/api';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from 'next/link';
 
 export default function LoginPage() {
-    const router = useRouter();
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
 
     const onSubmit = async (data) => {
         setLoading(true);
         setError('');
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/login', data);
+            const res = await api.post('/auth/login', data);
             localStorage.setItem('user', JSON.stringify(res.data));
             // Force reload to update navbar state (simple approach) or just verify redirection works
             window.location.href = '/';
