@@ -9,6 +9,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from 'next/link';
 
 export default function LoginPage() {
+    const router = useRouter();
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const onSubmit = async (data) => {
         setLoading(true);
